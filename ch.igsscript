@@ -1,0 +1,62 @@
+/*
+* chatbot app
+*/
+
+"Clean-up" {
+    chatbot.clear()
+    chatbot.username = "Username"
+    
+    assert user "Username is 'Username' 
+}
+
+
+"Inputs" "Test inputs" {
+    chatbot.username = "Chatbot Natural Language Processing"
+    assert user "Username is 'Chatbot Natural Language Processing'"
+
+    chatbot.chatMessage = "Est ce que vous pouvez dessiner un rectangle ? "
+    assert chatbot.chat_message == "Est ce que vous pouvez dessiner un rectangle ?"
+}
+
+
+"Services" "Test services" {
+    
+    chatbot.clear()
+    Whiteboard.clear()
+    sleep 100
+
+    chatbot.chat_message("Hello")
+    assert Whiteboard.lastAction == "Service chat: Hello" 
+    
+
+    chatbot.chat_message("Hello")
+    assert elementCreated from Whiteboard
+
+
+    chatbot.chat_message("add rectangle")
+    assert elementCreated from Whiteboard
+
+    chatbot.chat_message("add ellipse")
+    assert elementCreated from Whiteboard
+
+    chatbot.chat_message("add image")
+    assert elementCreated from Whiteboard
+
+    sleep 1000
+
+
+    chatbot.chat_message("remove 3")
+    assert actionResult from Whiteboard
+
+
+    chatbot.chat_message("translate element 0")
+    assert actionResult from Whiteboard
+
+
+    chatbot.chat_message("move element  0")
+    assert actionResult from Whiteboard
+
+
+    chatbot.snapshot()
+    assert snapshotResult from Chatbot
+}
